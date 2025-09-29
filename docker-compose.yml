@@ -1,0 +1,15 @@
+version: "3.9"
+
+services:
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: fastapi-static-demo
+    ports:
+      - "8000:8000"
+    # Bind-mount local app/ into the container for live editing
+    volumes:
+      - ./app:/app/app:rw
+    # Use reload for live code updates in dev
+    command: uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload
